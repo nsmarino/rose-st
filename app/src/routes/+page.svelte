@@ -10,12 +10,31 @@
 	$: ({ data: posts } = $q);
 </script>
 
-<section>
-	{#if posts.length}
+<main>
+	<!-- {#if posts.length}
 		{#each posts as post}
 			<Card {post} />
 		{/each}
 	{:else}
 		<Welcome />
-	{/if}
-</section>
+	{/if} -->
+	<h1>A Venture Capital<br />Firm Investing In The<br />Future Of The<br />Consumer Internet.</h1>
+	</main>
+<style>
+	main {
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-basis: 100%;
+	}
+	h1 {
+		font-family: 'Neue Machina';
+		font-weight: 300;
+		font-size: 80px;
+		text-transform: uppercase;
+	}
+	br {
+
+	}
+</style>

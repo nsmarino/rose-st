@@ -13,28 +13,16 @@
 
 <div class="container">
 	<header class="header">
-		<a class="header__title" href="/">SvelteKit + Sanity</a>
+		<a class="header__title" href="/">Info</a>
+		<a class="header__title" href="/">Rose Street Capital</a>
+		<a class="header__title" href="/portfolio">Portfolio</a>
 	</header>
-	<main>
-		<slot />
-	</main>
+	<slot />
 	<footer class="footer">
-		<p class="footer__text">
-			Made with <svg
-				data-sanity-icon="heart-filled"
-				width="1em"
-				height="1em"
-				viewBox="0 0 25 25"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-				><path
-					d="M17 16C15.8 17.3235 12.5 20.5 12.5 20.5C12.5 20.5 9.2 17.3235 8 16C5.2 12.9118 4.5 11.7059 4.5 9.5C4.5 7.29412 6.1 5.5 8.5 5.5C10.5 5.5 11.7 6.82353 12.5 8.14706C13.3 6.82353 14.5 5.5 16.5 5.5C18.9 5.5 20.5 7.29412 20.5 9.5C20.5 11.7059 19.8 12.9118 17 16Z"
-					fill="currentColor"
-					stroke="currentColor"
-					stroke-width="1.2"
-				/></svg
-			> at Sanity
-		</p>
+		<div>New York City</div>
+		<div>Careers</div>
+		<div>Data Room</div>
+		<div>[ Investor Login]</div>
 	</footer>
 </div>
 
@@ -44,17 +32,31 @@
 {/if}
 
 <style>
-	.container {
-		margin: 0 auto;
+	@font-face {
+		font-family: 'NB International';
+		font-style: normal;
+		font-weight: 300;
+		src: url('/fonts/NB International Regular.otf') format('opentype');
+	}
+	@font-face {
+		font-family: 'Neue Machina';
+		font-style: normal;
+		font-weight: 500;
+		src: url('/fonts/Neue-Machina-Inktrap.otf') format('opentype');
+	}
+	:root {
+		font-family: 'NB International';
 	}
 
-	main {
-		margin-top: 45px;
+	.container {
+		margin: 0 auto;
+		height: 100vh;
 	}
 
 	.header {
 		display: flex;
-		padding: 0 var(--space-1);
+		justify-content: space-between;
+		/* padding: 0 var(--space-1); */
 		border-bottom: 1px solid #ced2d9;
 
 		z-index: 10;
@@ -63,6 +65,7 @@
 		left: 0;
 		right: 0;
 		top: 0;
+		height: 60px;
 	}
 
 	.header .header__title {
@@ -70,15 +73,15 @@
 		font-size: var(--font-size-3);
 		line-height: var(--line-height-1);
 		padding-left: var(--space-2);
-		margin: var(--space-3) 0;
+		/* margin: var(--space-3) 0; */
 		text-decoration: none;
 		color: var(--black);
 	}
 
 	.footer {
 		display: flex;
-		justify-content: flex-end;
-		padding: 0 var(--space-3);
+		justify-content: space-between;
+		height: 60px;
 	}
 
 	.footer .footer__text {
@@ -91,20 +94,26 @@
 
 	@media (min-width: 575px) {
 		.container {
-			max-width: var(--max-width-1);
-			padding: 0 var(--space-4);
+			display: flex;
+			flex-direction: column;
+			/* max-width: var(--max-width-1);
+			padding: 0 var(--space-4); */
 		}
 
 		main {
-			margin-top: unset;
+			flex-basis: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 
 		.header {
 			position: unset;
 			border-bottom: none;
-			margin: var(--space-3) 0;
-			padding: var(--space-2) 0;
+			/* margin: var(--space-3) 0;
+			padding: var(--space-2) 0; */
 			background: unset;
+			width: 100%;
 		}
 
 		.header .header__title {
@@ -113,7 +122,7 @@
 		}
 
 		.footer {
-			margin: var(--space-3) 0;
+			margin-top: auto;
 		}
 	}
 
