@@ -1,5 +1,7 @@
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
+import { singletonTools } from 'sanity-plugin-singleton-tools';
+
 import {structureTool} from 'sanity/structure'
 import {presentationTool} from 'sanity/presentation'
 
@@ -10,10 +12,11 @@ export const dataset = process.env.SANITY_STUDIO_DATASET!
 
 export default defineConfig({
   name: 'project-name',
-  title: 'Project Name',
+  title: 'Rose Street Capital',
   projectId,
   dataset,
   plugins: [
+    singletonTools(),
     structureTool(),
     presentationTool({
       previewUrl: {

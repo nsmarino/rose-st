@@ -77,6 +77,7 @@
     }
     nav button {
         all: unset;
+        outline: revert;
     }
     .portfolio-table {
         margin-left: 33%;
