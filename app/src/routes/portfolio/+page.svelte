@@ -68,24 +68,22 @@
 		font-weight: 300;
 		font-size: 40px;
 		text-transform: uppercase;
+        text-align: center;
     }
     nav {
         text-transform: uppercase;
         font-weight: 400;
         display: flex;
         gap: 60px;
+        justify-content: space-between;
     }
     nav button {
         all: unset;
         outline: revert;
     }
-    .portfolio-table {
-        margin-left: 33%;
-        position: relative;
-    }
+
     .table-header {
-        display: flex;
-        margin-bottom: 40px;
+        display: none;
     }
     .table-header * {
         flex-basis: 100%;
@@ -95,28 +93,62 @@
 
     .table-row {
         display: flex;
-        color: #969696;
-    }
-    .table-row:hover {
-        color: #414141;
+        flex-direction: column;
+        margin-top: 24px;
     }
     .table-row * {
         flex-basis: 100%;
         text-transform: uppercase;
         font-size: 24px;
         line-height: 48px;
-    }
-    .portfolio-table::after {
-        content: '';
-        width: 100%;
-        height: 50%;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        pointer-events: none;
-        background: linear-gradient(179.94deg, rgba(255, 255, 255, 0) 39.38%, #FFFFFF 99.95%);
 
+    }
+    .table-row > :last-child {
+        color: #969696;
+    }
+    nav div {
+        display: none;
+    }
+    @media (min-width: 575px) {
+        h2 {
+            text-align: left;
+        }
+
+        nav {
+            justify-content: start;
+            margin-bottom: 60px;
+        }
+        nav div {
+            display: block;
+        }
+        .portfolio-table {
+            margin-left: 33%;
+            position: relative;
+        }
+        .table-header {
+            display: flex;
+        }
+        .table-row {
+            color: #969696;
+            flex-direction: row;
+        }
+        .table-row > :last-child {
+            color: unset;
+        }
+        .table-row:hover {
+            color: #414141;
+        }
+        .portfolio-table::after {
+            content: '';
+            width: 100%;
+            height: 50%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            pointer-events: none;
+            background: linear-gradient(179.94deg, rgba(255, 255, 255, 0) 39.38%, #FFFFFF 99.95%);
+        }
     }
 
 </style>
