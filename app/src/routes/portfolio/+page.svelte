@@ -1,4 +1,10 @@
-<script></script>
+<script>
+    import { useQuery } from '@sanity/svelte-loader';
+
+    export let data
+	const q = useQuery(data);
+	$: ({ data: posts } = $q);
+</script>
 <main>
     <h2>Investments</h2>
     <nav>
@@ -12,57 +18,25 @@
             <span>Name</span>
             <span>Industry</span>
         </div>
-        <div class="table-row">
-            <span>Golde</span>
-            <span>Health & Wellness</span>
-        </div>
-        <div class="table-row">
-            <span>Golde</span>
-            <span>Health & Wellness</span>
-        </div>
-        <div class="table-row">
-            <span>Golde</span>
-            <span>Health & Wellness</span>
-        </div>
-        <div class="table-row">
-            <span>Golde</span>
-            <span>Health & Wellness</span>
-        </div>
-        <div class="table-row">
-            <span>Golde</span>
-            <span>Health & Wellness</span>
-        </div>
-        <div class="table-row">
-            <span>Golde</span>
-            <span>Health & Wellness</span>
-        </div>
-        <div class="table-row">
-            <span>Golde</span>
-            <span>Health & Wellness</span>
-        </div>
-        <div class="table-row">
-            <span>Golde</span>
-            <span>Health & Wellness</span>
-        </div>
-        <div class="table-row">
-            <span>Golde</span>
-            <span>Health & Wellness</span>
-        </div>
+        {#each posts as post}
+            {#if post.url}
+                <a class="table-row" href="{post.url}">
+                    {#if post.acq}<span class="acq-note">{post.acq}</span>{/if}
+                    <span>{post.title}</span>
+                    <span>{post.industry}</span>
+                </a> 
+            {:else}
+                <div class="table-row">
+                    {#if post.acq}<span class="acq-note">{post.acq}</span>{/if}
+                    <span>{post.title}</span>
+                    <span>{post.industry}</span>
+                </div>
+            {/if}     
+        {/each}
     </div>
 </main>
 <style>
-    main {
-        flex-basis: 100%;
-        overflow-y: scroll;
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none;  /* Internet Explorer 10+ */
-        padding: 24px;
-    }
 
-    main::-webkit-scrollbar { /* WebKit */
-        width: 0;
-        height: 0;
-    }
     h2 {
         font-family: 'Neue Machina';
 		font-weight: 300;
@@ -109,14 +83,35 @@
     nav div {
         display: none;
     }
+    .acq-note {
+        display: none;
+    }
     @media (min-width: 575px) {
         h2 {
             text-align: left;
         }
 
+        main {
+            min-height: 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: max-content max-content minmax(0,1fr);
+            flex-basis: 100%;
+        }
+        .portfolio-table {
+            overflow-y: scroll;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* Internet Explorer 10+ */
+            padding: 24px;
+        }
+
+        .portfolio-table::-webkit-scrollbar { /* WebKit */
+            width: 0;
+            height: 0;
+        }
         nav {
             justify-content: start;
-            margin-bottom: 60px;
+            min-height: fit-content;
         }
         nav div {
             display: block;
@@ -127,18 +122,31 @@
         }
         .table-header {
             display: flex;
+            margin-top: 60px;
         }
         .table-row {
             color: #969696;
             flex-direction: row;
+            position: relative;
         }
+        
         .table-row > :last-child {
             color: unset;
         }
         .table-row:hover {
             color: #414141;
         }
-        .portfolio-table::after {
+        .table-row:hover .acq-note {
+            display: block;
+            position: absolute;
+            left: -60px;
+
+            transform: translateX(-100%);
+        }
+        main {
+            position: relative;
+        }
+        main::after {
             content: '';
             width: 100%;
             height: 50%;

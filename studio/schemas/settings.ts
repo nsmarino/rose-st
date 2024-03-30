@@ -1,5 +1,3 @@
-import {defineField, defineType} from 'sanity'
-
 const settings  = {
     name: 'settings',
     title: 'Settings',
@@ -20,17 +18,17 @@ const settings  = {
       },
       {
         name: 'careers_link',
-        title: 'Investor Login Link',
+        title: 'Careers Link (hidden if empty)',
         type: 'url',
       },
       {
         name: 'data_room_link',
-        title: 'Data Room Link',
+        title: 'Data Room Link (hidden if empty)',
         type: 'url',
       },
       {
         name: 'footer_image',
-        title: 'Footer Image',
+        title: 'Footer Image (hidden if empty)',
         type: 'image',
         options: {
           hotspot: false,

@@ -1,8 +1,17 @@
-<script lang="ts">
+<script>
 	import { isPreviewing, VisualEditing } from '@sanity/visual-editing/svelte';
 	import { page } from '$app/stores';
+	import { useQuery } from '@sanity/svelte-loader';
 	import LiveMode from '../components/LiveMode.svelte';
-	console.log($page.url.pathname)
+	import { urlFor } from '$lib/sanity/image';
+
+	export let data
+
+	const {query, options} = data
+	const q = useQuery({query, options});
+	$: ({ data: settings } = $q);
+	console.log("Settings.......", data)
+
 </script>
 
 {#if $isPreviewing}
@@ -13,7 +22,7 @@
 {/if}
 
 <div class="container">
-	<header class="header">		
+	<header class="header">	
 		<a class="header__title" id="logo-link" href="/">Rose Street Capital</a>
 		<a class="header__title" id="info-link" href="/">Info</a>
 		<a class="header__title" id="portfolio-link" href="/portfolio">Portfolio</a>
@@ -22,7 +31,7 @@
 	{#if $page.url.pathname==="/"}
 		<footer class="footer-info">
 			<div class="dk-only">New York City</div>
-			<div class="dk-only">Careers</div>
+			{#if settings.careers_link}<a href={settings.careers_link} class="dk-only">Careers</a>{/if}
 			<div>
 				<svg width="21" height="44" viewBox="0 0 21 44" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<g id="Group 19">
@@ -37,22 +46,23 @@
 					</g>
 				</svg>		
 			</div>
-			<div class="dk-only">Data Room</div>
-			<div>[Investor Login]</div>
+			{#if settings.data_room_link}<a href={settings.data_room_link} class="dk-only">Data Room</a>{/if}
+			{#if settings.investor_link}<a href={settings.investor_link}>[Investor Login]</a>{/if}
 		</footer>
 	{:else}
 	<footer class="footer-portfolio">
-		<div class="investor-link">[Investor Login]</div>
+		<a href={settings.investor_link} class="investor-link">[Investor Login]</a>
 		<div class="footer-text">
 			<span>Rose Street Capital</span>
 			<span>New York City</span>
 		</div>
-		<div class="footer-img">
-			<img src="/rose-st-image.png" alt="dithered rose">
-		</div>
+		{#if urlFor(settings.footer_image)}
+			<div class="footer-img">
+				<img src={urlFor(settings.footer_image)} alt="dithered rose">
+			</div>
+		{/if}
 	</footer>	
 	{/if}
-
 </div>
 
 {#if $isPreviewing}
