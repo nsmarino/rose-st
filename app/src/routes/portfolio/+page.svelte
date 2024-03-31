@@ -4,21 +4,25 @@
     export let data
 	const q = useQuery(data);
 	$: ({ data: posts } = $q);
+
+    let filtered = [];
+	$: filtered = filtered.length > 0 ? filtered : posts
+    $: console.log(filtered)
 </script>
 <main>
     <h2>Investments</h2>
     <nav>
         <div>Filter:</div>
-        <button>All</button>
-        <button>Software</button>
-        <button>Consumer</button>
+        <button on:click={()=>(filtered = [])}>All</button>
+        <button on:click={()=>filtered = posts.filter(i=> i.software)}>Software</button>
+        <button on:click={()=>filtered = posts.filter(i=> i.consumer)}>Consumer</button>
     </nav>
     <div class="portfolio-table">
         <div class="table-header">
             <span>Name</span>
             <span>Industry</span>
         </div>
-        {#each posts as post}
+        {#each filtered as post}
             {#if post.url}
                 <a class="table-row" href="{post.url}">
                     {#if post.acq}<span class="acq-note">{post.acq}</span>{/if}
@@ -149,7 +153,7 @@
         main::after {
             content: '';
             width: 100%;
-            height: 50%;
+            height: 30%;
             position: absolute;
             bottom: 0;
             left: 0;

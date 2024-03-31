@@ -54,7 +54,7 @@
 			<span>Rose Street Capital</span>
 			<span>New York City</span>
 		</div>
-		{#if urlFor(settings?.footer_image)}
+		{#if settings?.footer_image}
 			<div class="footer-img">
 				<img src={urlFor(settings?.footer_image)} alt="dithered rose">
 			</div>
