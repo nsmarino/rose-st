@@ -1,14 +1,15 @@
 <script>
     import { useQuery } from '@sanity/svelte-loader';
-    import {fade } from "svelte/transition"
     export let data
 	const q = useQuery(data);
+    import { fly } from "svelte/transition"
+
 	$: ({ data: posts } = $q);
 
     let filter = "";
 	$: filtered = filter ? posts.filter(i=> i[filter]) : posts
 </script>
-<main in:fade={{ duration: 300, delay: 400 }} out:fade={{ duration: 300 }}>
+<main  in:fly={{y: 10}}>
     <h2>Investments</h2>
     <nav>
         <div>Filter:</div>

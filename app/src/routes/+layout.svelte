@@ -1,6 +1,7 @@
 <script>
 	import { isPreviewing, VisualEditing } from '@sanity/visual-editing/svelte';
 	import { page } from '$app/stores';
+	import { fade } from "svelte/transition"
 	import { useQuery } from '@sanity/svelte-loader';
 	import LiveMode from '../components/LiveMode.svelte';
 	import { urlFor } from '$lib/sanity/image';
@@ -27,7 +28,7 @@
 	</header>
 	<slot />
 	{#if $page.url.pathname==="/"}
-		<footer class="footer-info">
+		<footer class="footer-info" in:fade>
 			<div class="dk-only">New York City</div>
 			{#if settings?.careers_link}<a href={settings?.careers_link} class="dk-only">Careers</a>{/if}
 			<div>
@@ -48,7 +49,7 @@
 			{#if settings?.investor_link}<a href={settings?.investor_link}>[Investor Login]</a>{/if}
 		</footer>
 	{:else}
-	<footer class="footer-portfolio">
+	<footer class="footer-portfolio" in:fade>
 		<a href={settings?.investor_link} class="investor-link">[Investor Login]</a>
 		<div class="footer-text">
 			<span>Rose Street Capital</span>

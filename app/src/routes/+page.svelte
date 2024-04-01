@@ -3,7 +3,7 @@
 	import Card from '../components/Card.svelte';
 	import Welcome from '../components/Welcome.svelte';
 	import type { PageData } from './$types';
-    import {fade } from "svelte/transition"
+    import { fly } from "svelte/transition"
 
 	export let data: PageData;
 	const q = useQuery(data);
@@ -11,10 +11,10 @@
 	$: ({ data: posts } = $q);
 </script>
 
-<main  in:fade={{ duration: 300, delay: 400 }} out:fade={{ duration: 300 }}>
-
+<main in:fly={{y: 10}}>
 	<h1>A Venture Capital<br />Firm Investing In The<br />Future Of The<br />Consumer Internet.</h1>
-	</main>
+</main>
+
 <style>
 	main {
 		text-align: center;
