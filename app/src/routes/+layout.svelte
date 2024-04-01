@@ -23,14 +23,14 @@
 <div class="container">
 	<header class="header">	
 		<a class="header__title" id="logo-link" href="/">Rose Street Capital</a>
-		<a class="header__title" id="info-link" href="/" class:active={$page.url.pathname==="/"}>Info</a>
-		<a class="header__title" id="portfolio-link" href="/portfolio" class:active={$page.url.pathname==="/portfolio"}>Portfolio</a>
+		<a class="header__title" href="/" id="info-link" class:active={$page.url.pathname==="/"}>Info</a>
+		<a class="header__title"  href="/portfolio" id="portfolio-link" class:active={$page.url.pathname==="/portfolio"}>Portfolio</a>
 	</header>
 	<slot />
 	{#if $page.url.pathname==="/"}
 		<footer class="footer-info" in:fade>
 			<div class="dk-only">New York City</div>
-			{#if settings?.careers_link}<a href={settings?.careers_link} class="dk-only">Careers</a>{/if}
+			{#if settings?.careers_link}<a href={settings?.careers_link} class="dk-only secondary">Careers</a>{/if}
 			<div>
 				<svg width="21" height="44" viewBox="0 0 21 44" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<g id="Group 19">
@@ -45,7 +45,7 @@
 					</g>
 				</svg>		
 			</div>
-			{#if settings?.data_room_link}<a href={settings?.data_room_link} class="dk-only">Data Room</a>{/if}
+			{#if settings?.data_room_link}<a href={settings?.data_room_link} class="dk-only secondary">Data Room</a>{/if}
 			{#if settings?.investor_link}<a href={settings?.investor_link}>[Investor Login]</a>{/if}
 		</footer>
 	{:else}
@@ -89,6 +89,8 @@
 	.container {
 		margin: 0 auto;
 		height: 100vh;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.header {
@@ -96,33 +98,52 @@
 		grid-template-areas: 
 			"logo info"
 			"logo portfolio";
-		grid-template-columns: min-content 1fr min-content;
 		z-index: 10;
 		background: var(--white);
-		position: fixed;
-		left: 0;
-		right: 0;
-		top: 0;
-		height: 60px;
+		padding: 30px 15px;
+	}
+	header a {
+		text-decoration: none;
 	}
 	#logo-link {
 		grid-area: logo;
-		margin: 20px;
+		color: black;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-family: 'NB International';
+		font-size: 28px;
+		font-weight: 700;
+		letter-spacing: 1.5px;
 	}
 	#info-link {
 		grid-area: info;
 		position: relative;
-		margin: 20px;
+		color: black;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-family: 'NB International';
+		font-size: 20px;
+		font-weight: 400;
+		letter-spacing: 1px;
+		justify-self: end;
 	}
 	#portfolio-link {
 		grid-area: portfolio;
 		position: relative;
-		margin: 20px;
-
+		color: black;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-family: 'NB International';
+		font-size: 20px;
+		font-weight: 400;
+		letter-spacing: 1px;
+		align-self: end;
+		justify-self: end;
 	}
+
 	#info-link::before, #portfolio-link::before {
         content: "";
-        height: 14px;
+        height: 20px;
         aspect-ratio: 1 / 1;
         background: black;
         border-radius: 100%;
@@ -134,7 +155,7 @@
     }
     #info-link.active::before, #portfolio-link.active::before {
         content: "";
-        height: 14px;
+        height: 20px;
         aspect-ratio: 1 / 1;
         background: black;
         border-radius: 100%;
@@ -146,17 +167,24 @@
         transition: all 0.2s linear;
     }
 
-
 	.footer-info {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+	}
+	.footer-info > * {
+		margin-bottom: 80px;
+		font-size: 20px;
+		color: black;
+		text-decoration: none;
+		text-transform: uppercase;
 	}
 	.footer-info .dk-only {
 		display: none;
 	}
 	.footer-portfolio {
 		border-top: 1px solid black;
+		padding: 20px;
 		display: grid;
 		grid-template-areas: 
 			"investor img"
@@ -164,42 +192,96 @@
 	}
 	.footer-portfolio .investor-link {
 		grid-area: investor;
+		text-transform: uppercase;
+		font-size: 20px;
+		text-decoration: none;
+		color: black;
 	}
 	.footer-portfolio .footer-text {
 		grid-area: text;
 		display: flex;
 		flex-direction: column;
+		text-transform: uppercase;
+		font-size: 20px;
+		text-decoration: none;
+		color: black;
+		align-self: end;
 	}
 	.footer-portfolio .footer-img {
 		grid-area: img;
+		align-self: end;
+		justify-self: end;
+	}
+	.footer-portfolio .footer-img img {
+		display: block;
 	}
 
 
-	@media (min-width: 575px) {
-		.container {
-			display: flex;
-			flex-direction: column;
-		}
-
+	@media only screen and (min-width: 575px) {
 		.header {
 			position: unset;
 			border-bottom: none;
 			background: unset;
+			grid-template-columns: 1fr 2fr 1fr;
 			width: 100%;
 			grid-template-areas: "info logo portfolio";
+			padding: 30px 0;
 		}
 		#logo-link {
 			text-align: center;
+			font-size: 40px;
 		}
-
 		#portfolio-link {
 			text-align: right;
+			margin-right: 24px;
+			font-size: 32px;
 		}
+		#info-link {
+			margin-left: 24px;
+			font-size: 32px;
+			justify-self: start;
+		}
+
+		#info-link::before, #portfolio-link::before {
+			height: 32px !important;
+			top: -2px !important;
+		}
+		#info-link::before {
+			height: 32px !important;
+			right: 0;
+			left: unset !important;
+			transform: translateX(200%) !important;
+		}
+		#info-link.active::before {
+			height: 32px !important;
+			transform: translateX(140%) !important;
+
+		}
+
 		.footer-info {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			justify-content: space-between;
+			padding: 0 24px 32px;
+		}
+		.footer-info > * {
+			margin-bottom: 0px;
+			font-size: 20px;
+			color: black;
+			text-decoration: none;
+			text-transform: uppercase;
+			position: relative;
+		}
+		.footer-info svg {
+			position: absolute;
+			bottom: 0;
+			transform: translateY(50%);
+		}
+		.footer-info .secondary {
+			text-decoration: underline;
+			color: #787878;
+			text-underline-offset: 4px;
 		}
 		.footer-info .dk-only {
 			display: block;
@@ -207,6 +289,7 @@
 		.footer-portfolio {
 			border-top: none;
 			display: grid;
+			padding: 0 24px 32px;
 			grid-template-areas: 
 				"img ."
 				"text investor";
@@ -221,6 +304,8 @@
 
 		.footer-portfolio .footer-img {
 			grid-area: img;
+			justify-self: start;
+			margin-bottom: 10px;
 		}
 	}
 

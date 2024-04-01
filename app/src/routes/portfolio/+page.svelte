@@ -9,36 +9,42 @@
     let filter = "";
 	$: filtered = filter ? posts.filter(i=> i[filter]) : posts
 </script>
-<main  in:fly={{y: 10}}>
-    <h2>Investments</h2>
-    <nav>
-        <div>Filter:</div>
-        <button class:active={filter===""} on:click={()=>(filter = "")}>All</button>
-        <button class:active={filter==="software"} on:click={()=>filter = "software"}>Software</button>
-        <button class:active={filter==="consumer"} on:click={()=>filter = "consumer"}>Consumer</button>
-    </nav>
-    <div class="portfolio-table">
-        <div class="table-header">
-            <span>Name</span>
-            <span>Industry</span>
-        </div>
-        {#each filtered as post}
-            {#if post.url}
-                <a class="table-row" href="{post.url}">
-                    {#if post.acq}<span class="acq-note">{post.acq}</span>{/if}
-                    <span>{post.title}</span>
-                    <span>{post.industry}</span>
-                </a> 
-            {:else}
-                <div class="table-row">
-                    {#if post.acq}<span class="acq-note">{post.acq}</span>{/if}
-                    <span>{post.title}</span>
-                    <span>{post.industry}</span>
+    <main in:fly={{y: 10}}>
+        <h2>Investments</h2>
+        <nav>
+            <div>Filter:</div>
+            <button class:active={filter===""} on:click={()=>(filter = "")}>All</button>
+            <button class:active={filter==="software"} on:click={()=>filter = "software"}>Software</button>
+            <button class:active={filter==="consumer"} on:click={()=>filter = "consumer"}>Consumer</button>
+        </nav>
+            <div class="portfolio-table">
+                <div class="table-header">
+                    <span>Name</span>
+                    <span>Industry</span>
                 </div>
-            {/if}     
-        {/each}
-    </div>
-</main>
+                
+                    {#each filtered as post}
+                        {#if post.url}
+                            {#key filter}
+                                <a class="table-row" href="{post.url}" in:fly={{y: 20}}>
+                                    {#if post.acq}<span class="acq-note">{post.acq}</span>{/if}
+                                    <span>{post.title}</span>
+                                    <span>{post.industry}</span>
+                                </a>
+                            {/key}
+                        {:else}
+                            {#key filter}
+                            <div class="table-row"in:fly={{y: 20}}>
+                                {#if post.acq}<span class="acq-note">{post.acq}</span>{/if}
+                                <span>{post.title}</span>
+                                <span>{post.industry}</span>
+                            </div>
+                            {/key}
+                        {/if}     
+                    {/each}
+            </div>
+    </main>
+
 <style>
 
     h2 {
@@ -52,8 +58,8 @@
         text-transform: uppercase;
         font-weight: 400;
         display: flex;
-        gap: 60px;
         justify-content: space-between;
+        margin: 0 24px;
     }
     nav button {
         all: unset;
@@ -94,6 +100,9 @@
         opacity: 1;
         transition: all 0.2s linear;
     }
+    .portfolio-table {
+        margin: 20px;
+    }
 
     .table-header {
         display: none;
@@ -108,14 +117,18 @@
         display: flex;
         flex-direction: column;
         margin-top: 24px;
+        color: unset;
+        text-decoration: none;
+        font-family: 'Neue Machina';
+        font-weight: 300;
     }
     .table-row * {
         flex-basis: 100%;
         text-transform: uppercase;
         font-size: 24px;
         line-height: 48px;
-
     }
+
     .table-row > :last-child {
         color: #969696;
     }
@@ -128,6 +141,7 @@
     @media (min-width: 575px) {
         h2 {
             text-align: left;
+            margin-left: 24px;
         }
 
         main {
@@ -151,22 +165,51 @@
         nav {
             justify-content: start;
             min-height: fit-content;
+            align-items: center;
+            gap: 120px;
         }
+        nav button::before {
+            content: "";
+            height: 24px;
+            aspect-ratio: 1 / 1;
+            background: black;
+            border-radius: 100%;
+            position: absolute;
+            left: 0;
+            top: -4px;
+            transform: translateX(-240%);
+            opacity: 0;
+        }
+
+        nav button.active::before {
+            transform: translateX(-200%);
+            height: 24px;
+            top: -6px;
+        }
+
         nav div {
             display: block;
+            font-size: 20px;
         }
+
+        nav button {
+            font-size: 24px;
+        }
+
         .portfolio-table {
-            margin-left: 33%;
+            padding-left: 33%;
             position: relative;
         }
         .table-header {
             display: flex;
-            margin-top: 60px;
+            margin: 40px 0;
         }
         .table-row {
             color: #969696;
+            transition: color 0.4s;
             flex-direction: row;
             position: relative;
+            margin-top: 0;
         }
         
         .table-row > :last-child {
@@ -174,13 +217,44 @@
         }
         .table-row:hover {
             color: #414141;
+            transition: color 0.4s;
+        }
+        .table-row .acq-note {
+            display: block;
+            position: absolute;
+            left: -60px;
+            opacity: 0;
+            transform: translateX(-100%) translateY(20%);
+            transition: all 0.4s;
+            font-size: 16px;
         }
         .table-row:hover .acq-note {
             display: block;
             position: absolute;
             left: -60px;
+            opacity: 1;
+            transform: translateX(-100%) translateY(0);
+            transition: all 0.4s;
+        }
+        .table-row::before {
+            content: "";
+            height: 24px;
+            aspect-ratio: 1 / 1;
+            background: black;
+            border-radius: 100%;
+            position: absolute;
+            left: 0;
+            top: 8px;
+            transform: translateX(-240%);
+            opacity: 0;
+            transition: all 0.4s;
+        }
 
-            transform: translateX(-100%);
+        .table-row:hover::before {
+            transform: translateX(-200%);
+            height: 24px;
+            opacity: 1;
+            transition: all 0.4s;
         }
         main {
             position: relative;
