@@ -1,21 +1,20 @@
 <script>
     import { useQuery } from '@sanity/svelte-loader';
-
+    import {fade } from "svelte/transition"
     export let data
 	const q = useQuery(data);
 	$: ({ data: posts } = $q);
 
-    let filtered = [];
-	$: filtered = filtered.length > 0 ? filtered : posts
-    $: console.log(filtered)
+    let filter = "";
+	$: filtered = filter ? posts.filter(i=> i[filter]) : posts
 </script>
-<main>
+<main in:fade={{ duration: 300, delay: 400 }} out:fade={{ duration: 300 }}>
     <h2>Investments</h2>
     <nav>
         <div>Filter:</div>
-        <button on:click={()=>(filtered = [])}>All</button>
-        <button on:click={()=>filtered = posts.filter(i=> i.software)}>Software</button>
-        <button on:click={()=>filtered = posts.filter(i=> i.consumer)}>Consumer</button>
+        <button class:active={filter===""} on:click={()=>(filter = "")}>All</button>
+        <button class:active={filter==="software"} on:click={()=>filter = "software"}>Software</button>
+        <button class:active={filter==="consumer"} on:click={()=>filter = "consumer"}>Consumer</button>
     </nav>
     <div class="portfolio-table">
         <div class="table-header">
@@ -58,6 +57,41 @@
     nav button {
         all: unset;
         outline: revert;
+        cursor: pointer;
+        color: #ABABAB;
+        transition: color 0.4s ease-out;
+        font-size: 16px;
+        line-height: 16px;
+    }
+    nav button.active {
+        color: #000000;
+        transition: color 0.4s ease-out;
+        position: relative;
+    }
+    nav button::before {
+        content: "";
+        height: 14px;
+        aspect-ratio: 1 / 1;
+        background: black;
+        border-radius: 100%;
+        position: absolute;
+        left: 0;
+        top: 0%;
+        transform: translateX(-180%);
+        opacity: 0;
+    }
+    nav button.active::before {
+        content: "";
+        height: 14px;
+        aspect-ratio: 1 / 1;
+        background: black;
+        border-radius: 100%;
+        position: absolute;
+        left: 0;
+        top: 0%;
+        transform: translateX(-140%);
+        opacity: 1;
+        transition: all 0.2s linear;
     }
 
     .table-header {

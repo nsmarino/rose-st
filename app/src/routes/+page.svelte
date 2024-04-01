@@ -3,6 +3,7 @@
 	import Card from '../components/Card.svelte';
 	import Welcome from '../components/Welcome.svelte';
 	import type { PageData } from './$types';
+    import {fade } from "svelte/transition"
 
 	export let data: PageData;
 	const q = useQuery(data);
@@ -10,14 +11,8 @@
 	$: ({ data: posts } = $q);
 </script>
 
-<main>
-	<!-- {#if posts.length}
-		{#each posts as post}
-			<Card {post} />
-		{/each}
-	{:else}
-		<Welcome />
-	{/if} -->
+<main  in:fade={{ duration: 300, delay: 400 }} out:fade={{ duration: 300 }}>
+
 	<h1>A Venture Capital<br />Firm Investing In The<br />Future Of The<br />Consumer Internet.</h1>
 	</main>
 <style>

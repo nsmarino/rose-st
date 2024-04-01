@@ -22,8 +22,8 @@
 <div class="container">
 	<header class="header">	
 		<a class="header__title" id="logo-link" href="/">Rose Street Capital</a>
-		<a class="header__title" id="info-link" href="/">Info</a>
-		<a class="header__title" id="portfolio-link" href="/portfolio">Portfolio</a>
+		<a class="header__title" id="info-link" href="/" class:active={$page.url.pathname==="/"}>Info</a>
+		<a class="header__title" id="portfolio-link" href="/portfolio" class:active={$page.url.pathname==="/portfolio"}>Portfolio</a>
 	</header>
 	<slot />
 	{#if $page.url.pathname==="/"}
@@ -95,6 +95,7 @@
 		grid-template-areas: 
 			"logo info"
 			"logo portfolio";
+		grid-template-columns: min-content 1fr min-content;
 		z-index: 10;
 		background: var(--white);
 		position: fixed;
@@ -105,13 +106,45 @@
 	}
 	#logo-link {
 		grid-area: logo;
+		margin: 20px;
 	}
 	#info-link {
 		grid-area: info;
+		position: relative;
+		margin: 20px;
 	}
 	#portfolio-link {
 		grid-area: portfolio;
+		position: relative;
+		margin: 20px;
+
 	}
+	#info-link::before, #portfolio-link::before {
+        content: "";
+        height: 14px;
+        aspect-ratio: 1 / 1;
+        background: black;
+        border-radius: 100%;
+        position: absolute;
+        left: 0;
+        top: 0%;
+        transform: translateX(-180%);
+        opacity: 0;
+    }
+    #info-link.active::before, #portfolio-link.active::before {
+        content: "";
+        height: 14px;
+        aspect-ratio: 1 / 1;
+        background: black;
+        border-radius: 100%;
+        position: absolute;
+        left: 0;
+        top: 0%;
+        transform: translateX(-140%);
+        opacity: 1;
+        transition: all 0.2s linear;
+    }
+
 
 	.footer-info {
 		display: flex;
