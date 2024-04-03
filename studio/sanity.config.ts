@@ -1,6 +1,7 @@
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import { singletonTools } from 'sanity-plugin-singleton-tools';
+import { inlineSvgInput } from '@focus-reactive/sanity-plugin-inline-svg-input'
 
 import {structureTool} from 'sanity/structure'
 import {presentationTool} from 'sanity/presentation'
@@ -18,6 +19,7 @@ export default defineConfig({
   plugins: [
     singletonTools(),
     structureTool(),
+    inlineSvgInput(),
     presentationTool({
       previewUrl: {
         origin: process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:5173',

@@ -1,29 +1,62 @@
 <script>
     import { useQuery } from '@sanity/svelte-loader';
     export let data
-	const q = useQuery(data);
+	const postsQ = useQuery(data.postsData);
+	const catQ = useQuery(data.catData);
+	const subcatQ = useQuery(data.subcatData);
     import { fly } from "svelte/transition"
 
-	$: ({ data: posts } = $q);
+	$: ({ data: posts } = $postsQ);
+	$: ({ data: categories } = $catQ);
+	$: ({ data: subcategories } = $subcatQ);
 
     let filter = "";
-	$: filtered = filter ? posts.filter(i=> i[filter]) : posts
+    let subfilter = ""
+	$: filtered = filter ? posts.filter(i=> i.category.title===filter) : posts
+	$: subfiltered = subfilter ? filtered.filter(i=>i.subcategories.map(subcat=>subcat.title).includes(subfilter)) : filtered
+    $: console.log("Here are the subfiltered :)", subfiltered)
+    // $: console.log("FILTER:", filter, "SUBFILTER", subfilter)
+    $: subfilters = filter ? [...new Set(filtered.map(post => post.subcategories).flat().map(subcat => subcat.title))] : []
+    const clearFilter = () => {
+        filter = ""
+        subfilter = ""
+    }
+    const setFilter = (title) => {
+        filter = title
+        subfilter = ""
+    }
+
 </script>
     <main in:fly={{y: 10}}>
         <h2>Investments</h2>
         <nav>
             <div>Filter:</div>
-            <button class:active={filter===""} on:click={()=>(filter = "")}>All</button>
-            <button class:active={filter==="software"} on:click={()=>filter = "software"}>Software</button>
-            <button class:active={filter==="consumer"} on:click={()=>filter = "consumer"}>Consumer</button>
+            <button class:active={filter===""} on:click={clearFilter}><span class="filter-bubble"></span>All</button>
+
+            {#each categories as cat}
+                <button class:active={filter===cat.title} on:click={()=>setFilter(cat.title)}><span class="filter-bubble"></span>{cat.title}</button>
+            {/each}
+            {#if filter !== "" && subfilters !== []}
+                <div class="subfilter-nav">
+                    <button class:active={subfilter===""} on:click={() => subfilter = ""}>All</button>
+                    {#each subfilters as subf}
+                        <button class:active={subfilter===subf} on:click={()=> subfilter = subf}>{subf}</button>
+                    {/each}
+                </div>            
+            {/if}
+
+            <!-- <button class:active={filter===""} on:click={()=>(filter = "")}><span class="filter-bubble"></span>All</button>
+            <button class:active={filter==="software"} on:click={()=>filter = "software"}><span class="filter-bubble"></span>Software</button>
+            <button class:active={filter==="consumer"} on:click={()=>filter = "consumer"}><span class="filter-bubble"></span>Consumer</button> -->
         </nav>
+
             <div class="portfolio-table">
                 <div class="table-header">
                     <span>Name</span>
                     <span>Industry</span>
                 </div>
                 
-                    {#each filtered as post}
+                    {#each subfiltered as post}
                         {#if post.url}
                             {#key filter}
                                 <a class="table-row" href="{post.url}" in:fly={{y: 20}}>
@@ -60,6 +93,7 @@
         display: flex;
         justify-content: space-between;
         margin: 0 24px;
+        position: relative;
     }
     nav button {
         all: unset;
@@ -70,34 +104,44 @@
         font-size: 16px;
         line-height: 16px;
     }
-    nav button.active {
+    nav button.active, nav button:hover {
         color: #000000;
         transition: color 0.4s ease-out;
         position: relative;
     }
-    nav button::before {
+    nav button .filter-bubble {
         content: "";
-        height: 14px;
+        height: 12px;
         aspect-ratio: 1 / 1;
         background: black;
         border-radius: 100%;
-        position: absolute;
-        left: 0;
-        top: 0%;
-        transform: translateX(-180%);
+        margin-right: 9px;
+        display: inline-block;
+        transform: scale(0.01);
+        transform-origin: center;
         opacity: 0;
     }
-    nav button.active::before {
+    .subfilter-nav {
+        flex-basis: 100%;
+        display: flex;
+        gap: 20px 80px;
+        flex-wrap: wrap;
+        position: absolute;
+        bottom: 0;
+        transform: translateY(calc(100% + 20px));
+    }
+    .subfilter-nav button {
+        font-size: 14px;
+    }
+    nav button.active .filter-bubble {
         content: "";
-        height: 14px;
         aspect-ratio: 1 / 1;
         background: black;
         border-radius: 100%;
-        position: absolute;
-        left: 0;
-        top: 0%;
-        transform: translateX(-140%);
+        display: inline-block;
         opacity: 1;
+        transform: scale(1);
+        transform-origin: center;
         transition: all 0.2s linear;
     }
     .portfolio-table {
@@ -166,27 +210,14 @@
             justify-content: start;
             min-height: fit-content;
             align-items: center;
-            gap: 120px;
-        }
-        nav button::before {
-            content: "";
-            height: 24px;
-            aspect-ratio: 1 / 1;
-            background: black;
-            border-radius: 100%;
-            position: absolute;
-            left: 0;
-            top: -4px;
-            transform: translateX(-240%);
-            opacity: 0;
+            gap: 40px 120px;
+            flex-wrap: wrap;
+
         }
 
-        nav button.active::before {
-            transform: translateX(-200%);
-            height: 24px;
-            top: -6px;
+        nav button .filter-bubble {
+            height: 18px;
         }
-
         nav div {
             display: block;
             font-size: 20px;
@@ -238,21 +269,19 @@
         }
         .table-row::before {
             content: "";
-            height: 24px;
+            height: 30px;
             aspect-ratio: 1 / 1;
             background: black;
             border-radius: 100%;
             position: absolute;
             left: 0;
-            top: 8px;
-            transform: translateX(-240%);
+            transform: translateX(-45px) translateY(6px) scale(0.01);
             opacity: 0;
             transition: all 0.4s;
         }
 
         .table-row:hover::before {
-            transform: translateX(-200%);
-            height: 24px;
+            transform: translateX(-45px) translateY(6px) scale(1);
             opacity: 1;
             transition: all 0.4s;
         }

@@ -27,13 +27,41 @@ const settings  = {
         type: 'url',
       },
       {
+        name: 'headerSVG',
+        title: 'Header Logo Mobile',
+        type: 'inlineSvg',
+      },
+      {
+        name: 'headerSVG_dk',
+        title: 'Header Logo Desktop',
+        type: 'inlineSvg',
+      },
+      {
+        name: 'footerSVG',
+        title: 'Footer Logo (hidden if empty)',
+        type: 'inlineSvg',
+      },
+      {
         name: 'footer_image',
         title: 'Footer Image (hidden if empty)',
         type: 'image',
         options: {
           hotspot: false,
         },
+      },     
+      {
+        name: 'bg_video_mobile',
+        title: 'Background Video - Mobile',
+        description: "Autoplay on loop, muted",
+        type: 'file',
       },
+      {
+        name: 'bg_video_desktop',
+        title: 'Background Video - Desktop',
+        description: "Autoplay on loop, muted",
+        type: 'file',
+      },
+
     ],
   };
 

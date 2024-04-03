@@ -2,7 +2,7 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'post',
-  title: 'Post',
+  title: 'Portfolio',
   type: 'document',
   fields: [
     {
@@ -35,7 +35,18 @@ export default defineType({
       name: 'consumer',
       type: 'boolean'
     },
-
+    {
+      title: 'Category',
+      name: 'category',
+      type: 'reference',
+      to: [{type: 'category'}]
+    },
+    {
+      title: 'Subcategories',
+      name: 'subcategories',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'subcategory'}]}]
+    }
   ],
   // preview: {
   //   select: {
