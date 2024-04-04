@@ -31,6 +31,7 @@
         <h2>Investments</h2>
         <nav>
             <div>Filter:</div>
+
             <button class:active={filter===""} on:click={clearFilter}><span class="filter-bubble"></span>All</button>
 
             {#each categories as cat}
@@ -92,7 +93,7 @@
         font-weight: 400;
         display: flex;
         justify-content: space-between;
-        margin: 0 24px;
+        margin: 0 24px 60px;
         position: relative;
     }
     nav button {
@@ -125,13 +126,16 @@
         flex-basis: 100%;
         display: flex;
         gap: 20px 80px;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        overflow: scroll;
+        width: 100%;
         position: absolute;
         bottom: 0;
         transform: translateY(calc(100% + 20px));
     }
     .subfilter-nav button {
         font-size: 14px;
+        white-space: nowrap;
     }
     nav button.active .filter-bubble {
         content: "";
@@ -212,6 +216,7 @@
             align-items: center;
             gap: 40px 120px;
             flex-wrap: wrap;
+            margin: 0 24px;
 
         }
 
@@ -221,12 +226,19 @@
         nav div {
             display: block;
             font-size: 20px;
+            width: 80px;
         }
 
         nav button {
             font-size: 24px;
         }
 
+        .subfilter-nav {
+            overflow: auto;
+            margin-left: 227px;
+            z-index: 1;
+            width: unset;
+        }
         .portfolio-table {
             padding-left: 33%;
             position: relative;

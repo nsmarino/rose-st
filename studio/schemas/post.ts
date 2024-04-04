@@ -26,16 +26,6 @@ export default defineType({
       type: 'url',
     },
     {
-      title: 'Software?',
-      name: 'software',
-      type: 'boolean'
-    },
-    {
-      title: 'Consumer?',
-      name: 'consumer',
-      type: 'boolean'
-    },
-    {
       title: 'Category',
       name: 'category',
       type: 'reference',
