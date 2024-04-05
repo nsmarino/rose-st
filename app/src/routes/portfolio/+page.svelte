@@ -14,8 +14,6 @@
     let subfilter = ""
 	$: filtered = filter ? posts.filter(i=> i.category.title===filter) : posts
 	$: subfiltered = subfilter ? filtered.filter(i=>i.subcategories.map(subcat=>subcat.title).includes(subfilter)) : filtered
-    $: console.log("Here are the subfiltered :)", subfiltered)
-    // $: console.log("FILTER:", filter, "SUBFILTER", subfilter)
     $: subfilters = filter ? [...new Set(filtered.map(post => post.subcategories).flat().map(subcat => subcat.title))] : []
     const clearFilter = () => {
         filter = ""
@@ -45,10 +43,6 @@
                     {/each}
                 </div>            
             {/if}
-
-            <!-- <button class:active={filter===""} on:click={()=>(filter = "")}><span class="filter-bubble"></span>All</button>
-            <button class:active={filter==="software"} on:click={()=>filter = "software"}><span class="filter-bubble"></span>Software</button>
-            <button class:active={filter==="consumer"} on:click={()=>filter = "consumer"}><span class="filter-bubble"></span>Consumer</button> -->
         </nav>
 
             <div class="portfolio-table">

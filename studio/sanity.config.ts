@@ -7,6 +7,7 @@ import {structureTool} from 'sanity/structure'
 import {presentationTool} from 'sanity/presentation'
 
 import {schemaTypes} from './schemas'
+import { locate } from './locate';
 
 export const projectId = process.env.SANITY_STUDIO_PROJECT_ID!
 export const dataset = process.env.SANITY_STUDIO_DATASET!
@@ -28,6 +29,7 @@ export default defineConfig({
           disable: '/preview/disable',
         },
       },
+      locate
     }),
     visionTool(),
   ],

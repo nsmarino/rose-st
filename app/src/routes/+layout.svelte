@@ -9,6 +9,22 @@
 	import { urlFor } from '$lib/sanity/image';
 	import { client } from "$lib/sanity/client"
 
+	// Visual editing and Presentation view
+	import { onMount } from 'svelte'
+	import { enableVisualEditing } from '@sanity/visual-editing'
+	import { useLiveMode } from '@sanity/svelte-loader'
+	import { PUBLIC_SANITY_STUDIO_URL } from '$env/static/public'
+
+	onMount(() => enableVisualEditing())
+	onMount(() => useLiveMode({
+		// If `stega.studioUrl` was not provided to the client instance in `sanity.ts`, a studioUrl should be provided here
+		studioUrl: PUBLIC_SANITY_STUDIO_URL
+		// ...or alternatively provide the stega client directly
+		// client: client.withConfig({
+		//   stega: true
+		// })
+	}))
+
 	export let data
 	let windowWidth
 	let videoMobileUrl, videoDesktopUrl
@@ -20,6 +36,7 @@
 	$: if (settings && settings.bg_video_mobile) videoMobileUrl = getFile(settings.bg_video_mobile, client.config()).asset.url || null
 	$: if (settings && settings.bg_video_desktop) videoDesktopUrl = getFile(settings.bg_video_desktop, client.config()).asset.url || null
 </script>
+
 <svelte:window bind:innerWidth={windowWidth}></svelte:window>
 
 {#if $isPreviewing}
