@@ -15,15 +15,17 @@
 	import { useLiveMode } from '@sanity/svelte-loader'
 	import { PUBLIC_SANITY_STUDIO_URL } from '$env/static/public'
 
-	onMount(() => enableVisualEditing())
-	onMount(() => useLiveMode({
-		// If `stega.studioUrl` was not provided to the client instance in `sanity.ts`, a studioUrl should be provided here
-		// studioUrl: PUBLIC_SANITY_STUDIO_URL
-		// ...or alternatively provide the stega client directly
-		client: client.withConfig({
-		  stega: true
+	let mounted;
+
+	onMount(() => {if($isPreviewing) enableVisualEditing()})
+	onMount(() => {
+		mounted = true
+		if($isPreviewing)useLiveMode({
+			client: client.withConfig({
+				stega: true
+			})
 		})
-	}))
+	})
 
 	export let data
 	let windowWidth
@@ -46,50 +48,51 @@
 	</a>
 {/if}
 
-{#if windowWidth < 768}
+{#if windowWidth < 768 && videoMobileUrl}
 	<video src={videoMobileUrl} autoplay muted loop class="bg-video"></video>
-{:else}
+{:else if videoDesktopUrl}
 	<video src={videoDesktopUrl} autoplay muted loop class="bg-video"></video>
 {/if}
 
-<div class="container">
-	<header class="header" in:fade={{delay: 200}}>	
-		<a class="header__title" id="logo-link" href="/">{#if windowWidth < 1100}{@html settings?.headerSVG}{:else}{@html headerSVG_dk}{/if}</a>
-		<a class="header__title" href="/" id="info-link" class:active={$page.url.pathname==="/"}>Info</a>
-		<a class="header__title"  href="/portfolio" id="portfolio-link" class:active={$page.url.pathname==="/portfolio"}>Portfolio</a>
-	</header>
-	<slot />
-	{#if $page.url.pathname==="/"}
-		<footer class="footer-info" in:fade={{delay:800}}>
-			<div class="dk-only">New York City</div>
-			{#if settings?.careers_link}<a href={settings?.careers_link} class="dk-only secondary">Careers</a>{/if}
-			<div>
-				{#if settings?.footerSVG}{@html settings?.footerSVG}{/if}	
+{#if mounted}
+	<div class="container">
+		<header class="header">	
+			<a class="header__title" id="logo-link" href="/">{#if windowWidth < 1100}{@html settings?.headerSVG}{:else}{@html headerSVG_dk}{/if}</a>
+			<a class="header__title" href="/" id="info-link" class:active={$page.url.pathname==="/"}>Info</a>
+			<a class="header__title"  href="/portfolio" id="portfolio-link" class:active={$page.url.pathname==="/portfolio"}>Portfolio</a>
+		</header>
+		<slot />
+		{#if $page.url.pathname==="/"}
+			<footer class="footer-info">
+				<div class="dk-only">New York City</div>
+				{#if settings?.careers_link}<a href={settings?.careers_link} class="dk-only secondary">Careers</a>{/if}
+				<div>
+					{#if settings?.footerSVG}{@html settings?.footerSVG}{/if}	
+				</div>
+				{#if settings?.data_room_link}<a href={settings?.data_room_link} class="dk-only secondary">Data Room</a>{/if}
+				{#if settings?.investor_link}<a href={settings?.investor_link}>[Investor Login]</a>{/if}
+			</footer>
+		{:else}
+		<footer class="footer-portfolio">
+			<a href={settings?.investor_link} class="investor-link">[Investor Login]</a>
+			<div class="footer-text">
+				<span>Rose Street Capital</span>
+				<span>New York City</span>
 			</div>
-			{#if settings?.data_room_link}<a href={settings?.data_room_link} class="dk-only secondary">Data Room</a>{/if}
-			{#if settings?.investor_link}<a href={settings?.investor_link}>[Investor Login]</a>{/if}
-		</footer>
-	{:else}
-	<footer class="footer-portfolio" in:fade={{delay: 800}}>
-		<a href={settings?.investor_link} class="investor-link">[Investor Login]</a>
-		<div class="footer-text">
-			<span>Rose Street Capital</span>
-			<span>New York City</span>
-		</div>
-		{#if settings?.footer_image}
-			<div class="footer-img">
-				<img src={urlFor(settings?.footer_image)} alt="dithered rose">
-			</div>
+			{#if settings?.footer_image}
+				<div class="footer-img">
+					<img src={urlFor(settings?.footer_image)} alt="dithered rose">
+				</div>
+			{/if}
+		</footer>	
 		{/if}
-	</footer>	
+	</div>
+
+	{#if $isPreviewing}
+		<VisualEditing />
+		<LiveMode />
 	{/if}
-</div>
-
-{#if $isPreviewing}
-	<VisualEditing />
-	<LiveMode />
 {/if}
-
 <style>
 	@font-face {
 		font-family: 'NB International';
@@ -125,7 +128,6 @@
 		height: 100vh;
 		display: flex;
 		flex-direction: column;
-		animation: fadein 2s;
 	}
 	
 	.header {
@@ -252,7 +254,22 @@
 	.footer-portfolio .footer-img img {
 		display: block;
 	}
+	.footer-info, .footer-portfolio, header {
+		opacity: 0;
+		animation: fadein 0.4s;
+		animation-fill-mode: forwards;
+	}
+	header {
+		animation-delay: 200ms;
+	}
+	.footer-info, .footer-portfolio {
+		animation-delay: 600ms;
+	}
 
+	@keyframes fadein {
+		0%   { opacity: 0; }
+		100% { opacity: 1; }
+	}
 
 	@media only screen and (min-width: 1100px) {
 		.header {

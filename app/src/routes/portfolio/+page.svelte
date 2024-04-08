@@ -15,6 +15,8 @@
 	$: filtered = filter ? posts.filter(i=> i.category.title===filter) : posts
 	$: subfiltered = subfilter ? filtered.filter(i=>i.subcategories.map(subcat=>subcat.title).includes(subfilter)) : filtered
     $: subfilters = filter ? [...new Set(filtered.map(post => post.subcategories).flat().map(subcat => subcat.title))] : []
+    $: filterKey = `${filter}-${subfilter}`
+    
     const clearFilter = () => {
         filter = ""
         subfilter = ""
@@ -25,7 +27,7 @@
     }
 
 </script>
-    <main in:fly={{y: 10, delay: 400}}>
+    <main>
         <h2>Investments</h2>
         <nav>
             <div>Filter:</div>
@@ -53,7 +55,7 @@
                 
                     {#each subfiltered as post}
                         {#if post.url}
-                            {#key filter}
+                            {#key filterKey}
                                 <a class="table-row" href="{post.url}" in:fly={{y: 20}}>
                                     {#if post.acq}<span class="acq-note">{post.acq}</span>{/if}
                                     <span>{post.title}</span>
@@ -61,12 +63,12 @@
                                 </a>
                             {/key}
                         {:else}
-                            {#key filter}
-                            <div class="table-row"in:fly={{y: 20}}>
-                                {#if post.acq}<span class="acq-note">{post.acq}</span>{/if}
-                                <span>{post.title}</span>
-                                <span>{post.industry}</span>
-                            </div>
+                            {#key filterKey}
+                                <div class="table-row"in:fly={{y: 20}}>
+                                    {#if post.acq}<span class="acq-note">{post.acq}</span>{/if}
+                                    <span>{post.title}</span>
+                                    <span>{post.industry}</span>
+                                </div>
                             {/key}
                         {/if}     
                     {/each}
@@ -74,7 +76,18 @@
     </main>
 
 <style>
+    main {
+		opacity: 0;
+		animation: fadein 0.4s;
+		animation-fill-mode: forwards;
+		animation-delay: 400ms;
+	}
 
+	@keyframes fadein {
+		0%   { opacity: 0; }
+		100% { opacity: 1; }
+	}    
+    
     h2 {
         font-family: 'Neue Machina';
 		font-weight: 300;
