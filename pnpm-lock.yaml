@@ -111,6 +111,9 @@ importers:
       react-is:
         specifier: ^18.2.0
         version: 18.2.0
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.1
       sanity:
         specifier: ^3.33.0
         version: 3.33.0(@types/node@18.19.23)(@types/react@18.2.65)(react-dom@18.2.0)(react@18.2.0)(styled-components@6.1.8)
