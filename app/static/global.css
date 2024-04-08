@@ -62,3 +62,7 @@ html {
 body {
 	margin: 0;
 }
+
+#logo-link svg {
+	max-width: 450px;
+}

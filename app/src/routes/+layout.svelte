@@ -18,11 +18,11 @@
 	onMount(() => enableVisualEditing())
 	onMount(() => useLiveMode({
 		// If `stega.studioUrl` was not provided to the client instance in `sanity.ts`, a studioUrl should be provided here
-		studioUrl: PUBLIC_SANITY_STUDIO_URL
+		// studioUrl: PUBLIC_SANITY_STUDIO_URL
 		// ...or alternatively provide the stega client directly
-		// client: client.withConfig({
-		//   stega: true
-		// })
+		client: client.withConfig({
+		  stega: true
+		})
 	}))
 
 	export let data
@@ -53,15 +53,14 @@
 {/if}
 
 <div class="container">
-	<header class="header">	
-
-		<a class="header__title" id="logo-link" href="/">{#if windowWidth < 768}{@html settings?.headerSVG}{:else}{@html headerSVG_dk}{/if}</a>
+	<header class="header" in:fade={{delay: 200}}>	
+		<a class="header__title" id="logo-link" href="/">{#if windowWidth < 1100}{@html settings?.headerSVG}{:else}{@html headerSVG_dk}{/if}</a>
 		<a class="header__title" href="/" id="info-link" class:active={$page.url.pathname==="/"}>Info</a>
 		<a class="header__title"  href="/portfolio" id="portfolio-link" class:active={$page.url.pathname==="/portfolio"}>Portfolio</a>
 	</header>
 	<slot />
 	{#if $page.url.pathname==="/"}
-		<footer class="footer-info" in:fade>
+		<footer class="footer-info" in:fade={{delay:800}}>
 			<div class="dk-only">New York City</div>
 			{#if settings?.careers_link}<a href={settings?.careers_link} class="dk-only secondary">Careers</a>{/if}
 			<div>
@@ -71,7 +70,7 @@
 			{#if settings?.investor_link}<a href={settings?.investor_link}>[Investor Login]</a>{/if}
 		</footer>
 	{:else}
-	<footer class="footer-portfolio" in:fade>
+	<footer class="footer-portfolio" in:fade={{delay: 800}}>
 		<a href={settings?.investor_link} class="investor-link">[Investor Login]</a>
 		<div class="footer-text">
 			<span>Rose Street Capital</span>
@@ -126,13 +125,9 @@
 		height: 100vh;
 		display: flex;
 		flex-direction: column;
-		animation: fadein 0.6s;
+		animation: fadein 2s;
 	}
-	@keyframes fadein {
-		0%   { opacity: 0; }
-		100% { opacity: 1; }
-	}
-
+	
 	.header {
 		display: grid;
 		grid-template-areas: 
@@ -259,7 +254,7 @@
 	}
 
 
-	@media only screen and (min-width: 575px) {
+	@media only screen and (min-width: 1100px) {
 		.header {
 			position: unset;
 			border-bottom: none;
@@ -273,10 +268,14 @@
 			text-align: center;
 			font-size: 40px;
 		}
+		#logo-link svg {
+			max-width: 450px;
+		}
 		#portfolio-link {
 			text-align: right;
 			margin-right: 24px;
 			font-size: 32px;
+			align-self: start;
 		}
 		#info-link {
 			margin-left: 24px;
@@ -308,7 +307,7 @@
 		}
 		.footer-info > * {
 			margin-bottom: 0px;
-			font-size: 20px;
+			font-size: 12px;
 			color: black;
 			text-decoration: none;
 			text-transform: uppercase;

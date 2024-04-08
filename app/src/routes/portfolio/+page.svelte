@@ -25,7 +25,7 @@
     }
 
 </script>
-    <main in:fly={{y: 10}}>
+    <main in:fly={{y: 10, delay: 400}}>
         <h2>Investments</h2>
         <nav>
             <div>Filter:</div>

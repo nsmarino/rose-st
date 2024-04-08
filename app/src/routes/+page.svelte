@@ -11,7 +11,7 @@
 	$: ({ data: posts } = $q);
 </script>
 
-<main in:fly={{y: 10}}>
+<main in:fly={{y: 10, delay: 400}}>
 	<h1>A Venture<br class="mobile" /> Capital<br class="desktop" /> Firm<br class="mobile" /> Investing <br class="mobile" /> In The<br class="desktop" /><br class="mobile" />  Future Of<br class="mobile" />  The<br class="mobile" /> <br class="desktop" /> Consumer Internet.</h1>
 </main>
 
