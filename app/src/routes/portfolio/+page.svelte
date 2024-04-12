@@ -138,7 +138,7 @@
         width: 100%;
         position: absolute;
         bottom: 0;
-        transform: translateY(calc(100% + 48px));
+        transform: translateY(calc(100% + 20px));
     }
     .subfilter-nav button {
         font-size: 14px;
@@ -247,6 +247,7 @@
             margin-left: 227px;
             z-index: 1;
             width: unset;
+            transform: translateY(calc(100% + 48px));
         }
         .portfolio-table {
             padding-left: 33%;
