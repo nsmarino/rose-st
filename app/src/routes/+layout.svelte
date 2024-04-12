@@ -70,7 +70,7 @@
 					{#if settings?.footerSVG}{@html settings?.footerSVG}{/if}	
 				</div>
 				{#if settings?.data_room_link}<a href={settings?.data_room_link} class="dk-only secondary">Data Room</a>{/if}
-				{#if settings?.investor_link}<a href={settings?.investor_link}>[Investor Login]</a>{/if}
+				{#if settings?.investor_link}<a href={settings?.investor_link} class="investor-link">[Investor Login]</a>{/if}
 			</footer>
 		{:else}
 		<footer class="footer-portfolio">
@@ -233,9 +233,23 @@
 		grid-area: investor;
 		text-transform: uppercase;
 		font-size: 20px;
+
+	}
+
+	.investor-link {
 		text-decoration: none;
 		color: black;
+		opacity: 0.6;
+		transition: all 0.2s;
 	}
+	.investor-link:hover {
+		color: black;
+		opacity: 1;
+		transition: all 0.2s;
+		text-decoration: underline;
+		text-underline-offset: 4px;
+	}
+
 	.footer-portfolio .footer-text {
 		grid-area: text;
 		display: flex;
@@ -291,18 +305,18 @@
 		#portfolio-link {
 			text-align: right;
 			margin-right: 24px;
-			font-size: 32px;
+			font-size: 28px;
 			align-self: start;
 		}
 		#info-link {
 			margin-left: 24px;
-			font-size: 32px;
+			font-size: 28px;
 			justify-self: start;
 		}
 
 		#info-link::before, #portfolio-link::before {
-			height: 32px !important;
-			top: -2px !important;
+			height: 24px !important;
+			top: 1px !important;
 		}
 		#info-link::before {
 			right: 0;
@@ -336,9 +350,18 @@
 			transform: translateY(50%);
 		}
 		.footer-info .secondary {
-			text-decoration: underline;
-			color: #787878;
+			text-decoration: none;
+			color: black;
+			opacity: 0.6;
 			text-underline-offset: 4px;
+			transition: all 0.2s;
+		}
+		.footer-info .secondary:hover {
+			text-decoration: underline;
+			color: black;
+			opacity: 1;
+			text-underline-offset: 4px;
+			transition: all 0.2s;
 		}
 		.footer-info .dk-only {
 			display: block;

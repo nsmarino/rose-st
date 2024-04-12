@@ -28,7 +28,7 @@
 
 </script>
     <main>
-        <h2>Investments</h2>
+        <h2>Portfolio Companies</h2>
         <nav>
             <div>Filter:</div>
 
@@ -49,7 +49,7 @@
 
             <div class="portfolio-table">
                 <div class="table-header">
-                    <span>Name</span>
+                    <span>Company</span>
                     <span>Industry</span>
                 </div>
                 
@@ -58,7 +58,7 @@
                             {#key filterKey}
                                 <a class="table-row" href="{post.url}" in:fly={{y: 20}}>
                                     {#if post.acq}<span class="acq-note">{post.acq}</span>{/if}
-                                    <span>{post.title}</span>
+                                    <span>{post.title} <span class="link-arrow">🠆</span></span>
                                     <span>{post.industry}</span>
                                 </a>
                             {/key}
@@ -138,7 +138,7 @@
         width: 100%;
         position: absolute;
         bottom: 0;
-        transform: translateY(calc(100% + 20px));
+        transform: translateY(calc(100% + 48px));
     }
     .subfilter-nav button {
         font-size: 14px;
@@ -156,7 +156,7 @@
         transition: all 0.2s linear;
     }
     .portfolio-table {
-        margin: 20px;
+        margin: 60px 20px 0;
     }
 
     .table-header {
@@ -181,7 +181,7 @@
         flex-basis: 100%;
         text-transform: uppercase;
         font-size: 24px;
-        line-height: 48px;
+        line-height: 40px;
     }
 
     .table-row > :last-child {
@@ -198,7 +198,9 @@
             text-align: left;
             margin-left: 24px;
         }
-
+        .table-row * {
+            line-height: 48px;
+        }
         main {
             min-height: 0;
             display: grid;
@@ -249,6 +251,7 @@
         .portfolio-table {
             padding-left: 33%;
             position: relative;
+            z-index: -1;
         }
         .table-header {
             display: flex;
@@ -269,10 +272,18 @@
             color: #414141;
             transition: color 0.4s;
         }
+        .table-row .link-arrow {
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .table-row:hover .link-arrow {
+            opacity: 1;
+            transition: opacity 0.4s;
+        }
         .table-row .acq-note {
             display: block;
             position: absolute;
-            left: -60px;
+            left: -20px;
             opacity: 0;
             transform: translateX(-100%) translateY(20%);
             transition: all 0.4s;
@@ -281,12 +292,12 @@
         .table-row:hover .acq-note {
             display: block;
             position: absolute;
-            left: -60px;
+            left: -20px;
             opacity: 1;
             transform: translateX(-100%) translateY(0);
             transition: all 0.4s;
         }
-        .table-row::before {
+        /* .table-row::before {
             content: "";
             height: 30px;
             aspect-ratio: 1 / 1;
@@ -303,9 +314,20 @@
             transform: translateX(-45px) translateY(6px) scale(1);
             opacity: 1;
             transition: all 0.4s;
-        }
+        } */
         main {
             position: relative;
+        }
+        main::before {
+            content: '';
+            width: 100%;
+            height: 300px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            pointer-events: none;
+            background: linear-gradient(179.94deg, #FFFFFF 50%,  rgba(255, 255, 255, 0) 99.95%);
         }
         main::after {
             content: '';

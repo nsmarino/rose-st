@@ -37,9 +37,9 @@
 	h1 {
 		font-family: 'Neue Machina';
 		font-weight: 300;
-		font-size: 40px;
+		font-size: 32px;
 		text-transform: uppercase;
-		line-height: 70px;
+		line-height: 60px;
 		margin: 0;
 	}
 	br.desktop {
@@ -48,7 +48,7 @@
 
 	@media (min-width: 575px) {
 		h1 {
-			font-size: 80px;
+			font-size: 64px;
 			line-height: 1.2;
 		}
 		br.mobile {
