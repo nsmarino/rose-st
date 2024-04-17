@@ -36,6 +36,7 @@
 	$: ({ data: settings } = $q);
 	$: headerSVG_dk = settings?.headerSVG_dk || ""
 	$: headerSVG_mb = settings?.headerSVG || ""
+	$: console.log(headerSVG_dk)
 	$: if (settings && settings.bg_video_mobile) videoMobileUrl = getFile(settings.bg_video_mobile, client.config()).asset.url || null
 	$: if (settings && settings.bg_video_desktop) videoDesktopUrl = getFile(settings.bg_video_desktop, client.config()).asset.url || null
 </script>
@@ -58,7 +59,7 @@
 {#if mounted}
 	<div class="container" style="{(videoDesktopUrl || videoMobileUrl) ?  "": "--table-bg: #FFFFFF;"}">
 		<header class="header">	
-			<a class="header__title" id="logo-link" href="/">{#if windowWidth < 1100}<img src={headerSVG_mb} alt="Rose Street Capital"/> {:else}<img src={headerSVG_dk} alt="Rose Street Capital"/>{/if}</a>
+			<a class="header__title" id="logo-link" href="/">{#if windowWidth < 1100}<img src={urlFor(headerSVG_mb)} alt="Rose Street Capital"/> {:else}<img src={urlFor(headerSVG_dk)} alt="Rose Street Capital"/>{/if}</a>
 			<a class="header__title" href="/" id="info-link" class:active={$page.url.pathname==="/"}>Info</a>
 			<a class="header__title"  href="/portfolio" id="portfolio-link" class:active={$page.url.pathname==="/portfolio"}>Portfolio</a>
 		</header>
