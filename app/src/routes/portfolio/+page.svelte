@@ -58,7 +58,7 @@
                             {#key filterKey}
                                 <a class="table-row" href="{post.url}" in:fly={{y: 20}}>
                                     {#if post.acq}<span class="acq-note">{post.acq}</span>{/if}
-                                    <span>{post.title} <span class="link-arrow">🠆</span></span>
+                                    <span>{post.title} <span class="link-arrow">→</span></span>
                                     <span>{post.industry}</span>
                                 </a>
                             {/key}
@@ -76,6 +76,7 @@
     </main>
 
 <style>
+    /* Mobile */
     main {
 		opacity: 0;
 		animation: fadein 0.4s;
@@ -93,15 +94,18 @@
 		font-weight: 300;
 		font-size: 40px;
 		text-transform: uppercase;
-        text-align: center;
+        text-align: left;
+        margin-left: 20px;
+        z-index: 1;
     }
     nav {
         text-transform: uppercase;
         font-weight: 400;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         margin: 0 24px 60px;
         position: relative;
+        gap: 20px;
     }
     nav button {
         all: unset;
@@ -193,6 +197,11 @@
     .acq-note {
         display: none;
     }
+    .table-row .link-arrow {
+        position: relative;
+        bottom: 4px;
+    }
+    /* Tablet */
     @media (min-width: 575px) {
         h2 {
             text-align: left;
@@ -212,7 +221,7 @@
             overflow-y: scroll;
             scrollbar-width: none; /* Firefox */
             -ms-overflow-style: none;  /* Internet Explorer 10+ */
-            padding: 24px;
+            margin: 60px 24px 0;
         }
 
         .portfolio-table::-webkit-scrollbar { /* WebKit */
@@ -223,7 +232,7 @@
             justify-content: start;
             min-height: fit-content;
             align-items: center;
-            gap: 40px 120px;
+            gap: 40px 60px;
             flex-wrap: wrap;
             margin: 0 24px;
 
@@ -250,7 +259,6 @@
             transform: translateY(calc(100% + 48px));
         }
         .portfolio-table {
-            padding-left: 33%;
             position: relative;
             z-index: -1;
         }
@@ -298,24 +306,6 @@
             transform: translateX(-100%) translateY(0);
             transition: all 0.4s;
         }
-        /* .table-row::before {
-            content: "";
-            height: 30px;
-            aspect-ratio: 1 / 1;
-            background: black;
-            border-radius: 100%;
-            position: absolute;
-            left: 0;
-            transform: translateX(-45px) translateY(6px) scale(0.01);
-            opacity: 0;
-            transition: all 0.4s;
-        }
-
-        .table-row:hover::before {
-            transform: translateX(-45px) translateY(6px) scale(1);
-            opacity: 1;
-            transition: all 0.4s;
-        } */
         main {
             position: relative;
         }
@@ -328,7 +318,7 @@
             left: 0;
             right: 0;
             pointer-events: none;
-            background: linear-gradient(179.94deg, #FFFFFF 50%,  rgba(255, 255, 255, 0) 99.95%);
+            background: linear-gradient(179.94deg, var(--table-bg) 50%,  rgba(255, 255, 255, 0) 99.95%);
         }
         main::after {
             content: '';
@@ -339,7 +329,16 @@
             left: 0;
             right: 0;
             pointer-events: none;
-            background: linear-gradient(179.94deg, rgba(255, 255, 255, 0) 39.38%, #FFFFFF 99.95%);
+            background: linear-gradient(179.94deg, rgba(255, 255, 255, 0) 39.38%, var(--table-bg) 99.95%);
+        }
+    }
+    /* Desktop */
+    @media (min-width: 1100px) {
+        .portfolio-table {
+            padding-left: 33%;
+        }
+        nav {
+            gap: 40px 120px;
         }
     }
 

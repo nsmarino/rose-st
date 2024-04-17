@@ -63,6 +63,12 @@ body {
 	margin: 0;
 }
 
-#logo-link svg {
-	max-width: 450px;
+
+@media only screen and (min-width: 1100px) {
+	#logo-link svg {
+		width: 450px;
+		display: block;
+		margin: 0 auto;
+	}
+
 }

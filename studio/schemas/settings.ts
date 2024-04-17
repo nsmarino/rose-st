@@ -29,12 +29,12 @@ const settings  = {
       {
         name: 'headerSVG',
         title: 'Header Logo Mobile',
-        type: 'inlineSvg',
+        type: 'image',
       },
       {
         name: 'headerSVG_dk',
         title: 'Header Logo Desktop',
-        type: 'inlineSvg',
+        type: 'image',
       },
       {
         name: 'footerSVG',

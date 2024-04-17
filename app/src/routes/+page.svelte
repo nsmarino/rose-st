@@ -12,7 +12,7 @@
 </script>
 
 <main>
-	<h1>A Venture<br class="mobile" /> Capital<br class="desktop" /> Firm<br class="mobile" /> Investing <br class="mobile" /> In The<br class="desktop" /><br class="mobile" />  Future Of<br class="mobile" />  The<br class="mobile" /> <br class="desktop" /> Consumer Internet.</h1>
+	<h1>A Venture Capital<br class="desktop" /> Firm Investing  In The<br class="desktop" />  Future Of  The <br class="desktop" /> Consumer Internet.</h1>
 </main>
 
 <style>
@@ -27,6 +27,7 @@
 		animation: fadein 0.4s;
 		animation-fill-mode: forwards;
 		animation-delay: 400ms;
+		margin: 0 15px;
 	}
 
 	@keyframes fadein {
@@ -37,9 +38,9 @@
 	h1 {
 		font-family: 'Neue Machina';
 		font-weight: 300;
-		font-size: 32px;
+		font-size: 28px;
 		text-transform: uppercase;
-		line-height: 60px;
+		line-height: 48px;
 		margin: 0;
 	}
 	br.desktop {
