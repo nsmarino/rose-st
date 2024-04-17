@@ -242,12 +242,12 @@
 		text-decoration: none;
 		color: black;
 		opacity: 0.6;
-		transition: all 0.2s;
+		transition: opacity 0.2s;
 	}
 	.investor-link:hover {
 		color: black;
 		opacity: 1;
-		transition: all 0.2s;
+		transition: opacity 0.2s;
 		text-decoration: underline;
 		text-underline-offset: 4px;
 	}
