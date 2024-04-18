@@ -1,7 +1,7 @@
 import type { LayoutServerLoad } from './$types';
 import { settingsQuery as query} from '$lib/sanity/queries';
 
-export const prerender = true;
+export const prerender = false;
 
 export const load: LayoutServerLoad = async (event) => {
 	// The `event.locals.preview` value received here is set by the helper function
