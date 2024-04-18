@@ -32,7 +32,7 @@
         <nav>
             <div>Filter:</div>
 
-            <button class:active={filter===""} on:click={clearFilter}><span class="filter-bubble"></span>All</button>
+            <button class:active={filter===""} on:click={clearFilter}>All</button>
 
             {#each categories as cat}
                 <button class:active={filter===cat.title} on:click={()=>setFilter(cat.title)}><span class="filter-bubble"></span>{cat.title}</button>

@@ -224,8 +224,11 @@
 		display: none;
 	}
 	.footer-portfolio {
+		margin-top: 40px;
 		border-top: 1px solid black;
 		padding: 20px;
+		gap: 20px;
+
 		display: grid;
 		grid-template-areas: 
 			"investor img"
@@ -369,14 +372,22 @@
 		.footer-portfolio {
 			border-top: none;
 			display: grid;
+			margin-top: 0;
+			gap: 0px;
 			padding: 0 24px 32px;
 			grid-template-areas: 
 				"img ."
 				"text investor";
 		}
+		.footer-portfolio .footer-text {
+			font-size: 12px;
+
+		}
 		.footer-portfolio .investor-link {
 			grid-area: investor;
 			text-align: right;
+			font-size: 12px;
+
 		}
 		.footer-portfolio .footer-text span:first-child {
 			display: none;
