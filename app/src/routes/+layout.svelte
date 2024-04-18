@@ -50,13 +50,14 @@
 	</a>
 {/if}
 
-{#if windowWidth < 768 && videoMobileUrl}
-	<video src={videoMobileUrl} autoplay muted loop class="bg-video"></video>
-{:else if videoDesktopUrl}
-	<video src={videoDesktopUrl} autoplay muted loop class="bg-video"></video>
-{/if}
+
 
 {#if mounted}
+	{#if windowWidth < 768 && videoMobileUrl}
+		<video src={videoMobileUrl} autoplay muted loop class="bg-video"></video>
+	{:else if videoDesktopUrl}
+		<video src={videoDesktopUrl} autoplay muted loop class="bg-video"></video>
+	{/if}
 	<div class="container" style="{(videoDesktopUrl || videoMobileUrl) ?  "": "--table-bg: #FFFFFF;"}">
 		<header class="header">	
 			<a class="header__title" id="logo-link" href="/">{#if windowWidth < 1100}<img src={urlFor(headerSVG_mb)} alt="Rose Street Capital"/> {:else}<img src={urlFor(headerSVG_dk)} alt="Rose Street Capital"/>{/if}</a>
