@@ -102,13 +102,13 @@
 		font-family: 'NB International';
 		font-style: normal;
 		font-weight: 300;
-		src: url('/fonts/NB International Regular.otf') format('opentype');
+		src: url('/fonts/NB-International.woff2') format('woff2');
 	}
 	@font-face {
 		font-family: 'Neue Machina';
 		font-style: normal;
 		font-weight: 500;
-		src: url('/fonts/Neue-Machina-Inktrap.otf') format('opentype');
+		src: url('/fonts/Neue-Machina.woff2') format('woff2');
 	}
 	:root {
 		font-family: 'NB International';
@@ -190,7 +190,7 @@
         border-radius: 100%;
         position: absolute;
         left: 0;
-        top: 0%;
+        top: 3px;
         transform: translateX(-140%) scale(0.001) ;
 		transform-origin: center;
         opacity: 0;
@@ -204,7 +204,7 @@
         border-radius: 100%;
         position: absolute;
         left: 0;
-        top: 0%;
+        top: 3px;
         transform: translateX(-140%) scale(1) ;
 		transform-origin: center;
         opacity: 1;
@@ -325,7 +325,7 @@
 
 		#info-link::before, #portfolio-link::before {
 			height: 24px !important;
-			top: 0px !important;
+			top: 4px !important;
 		}
 		#info-link::before {
 			right: 0;
