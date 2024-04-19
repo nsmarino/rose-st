@@ -20,6 +20,10 @@
 	onMount(() => {if($isPreviewing) enableVisualEditing()})
 	onMount(() => {
 		mounted = true
+		const appHeight = () => document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`)
+	window.addEventListener('resize', appHeight)
+	appHeight()
+
 		if($isPreviewing)useLiveMode({
 			client: client.withConfig({
 				stega: true
@@ -39,9 +43,6 @@
 	$: console.log(headerSVG_dk)
 	$: if (settings && settings.bg_video_mobile) videoMobileUrl = getFile(settings.bg_video_mobile, client.config()).asset.url || null
 	$: if (settings && settings.bg_video_desktop) videoDesktopUrl = getFile(settings.bg_video_desktop, client.config()).asset.url || null
-	const appHeight = () => document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`)
-	window.addEventListener('resize', appHeight)
-	appHeight()
 </script>
 
 <svelte:window bind:innerWidth={windowWidth}></svelte:window>
