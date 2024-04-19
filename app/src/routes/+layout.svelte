@@ -39,6 +39,9 @@
 	$: console.log(headerSVG_dk)
 	$: if (settings && settings.bg_video_mobile) videoMobileUrl = getFile(settings.bg_video_mobile, client.config()).asset.url || null
 	$: if (settings && settings.bg_video_desktop) videoDesktopUrl = getFile(settings.bg_video_desktop, client.config()).asset.url || null
+	const appHeight = () => document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`)
+	window.addEventListener('resize', appHeight)
+	appHeight()
 </script>
 
 <svelte:window bind:innerWidth={windowWidth}></svelte:window>
@@ -54,9 +57,9 @@
 
 {#if mounted}
 	{#if windowWidth < 768 && videoMobileUrl}
-		<video src={videoMobileUrl} autoplay muted loop class="bg-video"></video>
+		<video src={videoMobileUrl} autoplay muted loop playsinline class="bg-video"></video>
 	{:else if videoDesktopUrl}
-		<video src={videoDesktopUrl} autoplay muted loop class="bg-video"></video>
+		<video src={videoDesktopUrl} autoplay muted loop playsinline class="bg-video"></video>
 	{/if}
 	<div class="container" style="{(videoDesktopUrl || videoMobileUrl) ?  "": "--table-bg: #FFFFFF;"}">
 		<header class="header">	
@@ -68,16 +71,16 @@
 		{#if $page.url.pathname==="/"}
 			<footer class="footer-info">
 				<div class="dk-only">New York City</div>
-				{#if settings?.careers_link}<a href={settings?.careers_link} class="dk-only secondary">Careers</a>{/if}
+				{#if settings?.careers_link}<a href={settings?.careers_link} class="dk-only secondary" target="_blank">Careers</a>{/if}
 				<div>
 					{#if settings?.footerSVG}{@html settings?.footerSVG}{/if}	
 				</div>
-				{#if settings?.data_room_link}<a href={settings?.data_room_link} class="dk-only secondary">Data Room</a>{/if}
-				{#if settings?.investor_link}<a href={settings?.investor_link} class="investor-link">[Investor Login]</a>{/if}
+				{#if settings?.data_room_link}<a href={settings?.data_room_link} class="dk-only secondary" target="_blank">Data Room</a>{/if}
+				{#if settings?.investor_link}<a href={settings?.investor_link} class="investor-link" target="_blank">[Investor Login]</a>{/if}
 			</footer>
 		{:else}
 		<footer class="footer-portfolio">
-			<a href={settings?.investor_link} class="investor-link">[Investor Login]</a>
+			<a href={settings?.investor_link} class="investor-link" target="_blank">[Investor Login]</a>
 			<div class="footer-text">
 				<span>Rose Street Capital</span>
 				<span>New York City</span>
@@ -125,10 +128,11 @@
 		height: 100%;
 		object-fit: cover;
 	}
+	video::-webkit-media-controls, video::-moz-media-controls, video::-o-media-controls, video::-ms-media-controls {   display: none !important; }
 
 	.container {
 		margin: 0 auto;
-		height: 100vh;
+		height: var(--app-height);
 		display: flex;
 		flex-direction: column;
 	}
@@ -320,7 +324,7 @@
 
 		#info-link::before, #portfolio-link::before {
 			height: 24px !important;
-			top: 3px !important;
+			top: 0px !important;
 		}
 		#info-link::before {
 			right: 0;

@@ -25,14 +25,16 @@
         filter = title
         subfilter = ""
     }
+	let windowWidth
 
 </script>
+<svelte:window bind:innerWidth={windowWidth}></svelte:window>
     <main>
         <h2>Portfolio Companies</h2>
         <nav>
             <div>Filter:</div>
 
-            <button class:active={filter===""} on:click={clearFilter}>All</button>
+            <button class:active={filter===""} on:click={clearFilter}>{#if windowWidth > 768 }<span class="filter-bubble"></span>{/if}All</button>
 
             {#each categories as cat}
                 <button class:active={filter===cat.title} on:click={()=>setFilter(cat.title)}><span class="filter-bubble"></span>{cat.title}</button>
@@ -56,7 +58,7 @@
                     {#each subfiltered as post}
                         {#if post.url}
                             {#key filterKey}
-                                <a class="table-row" href="{post.url}" in:fly={{y: 20}}>
+                                <a target="_blank" class="table-row" href="{post.url}" in:fly={{y: 20}}>
                                     {#if post.acq}<span class="acq-note">{post.acq}</span>{/if}
                                     <span>{post.title} <span class="link-arrow">→</span></span>
                                     <span>{post.industry}</span>
