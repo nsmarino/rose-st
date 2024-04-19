@@ -20,9 +20,6 @@
 	onMount(() => {if($isPreviewing) enableVisualEditing()})
 	onMount(() => {
 		mounted = true
-		const appHeight = () => document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`)
-	window.addEventListener('resize', appHeight)
-	appHeight()
 
 		if($isPreviewing)useLiveMode({
 			client: client.withConfig({
@@ -133,7 +130,7 @@
 
 	.container {
 		margin: 0 auto;
-		height: var(--app-height);
+		height: 100vh;
 		display: flex;
 		flex-direction: column;
 	}
@@ -220,7 +217,7 @@
 		align-items: center;
 	}
 	.footer-info > * {
-		margin-bottom: 80px;
+		margin-bottom: 20px;
 		font-size: 20px;
 		color: black;
 		text-decoration: none;
@@ -297,6 +294,9 @@
 	}
 
 	@media only screen and (min-width: 1100px) {
+		.footer-info > * {
+			margin-bottom: 80px;
+		}
 		.header {
 			position: unset;
 			border-bottom: none;
