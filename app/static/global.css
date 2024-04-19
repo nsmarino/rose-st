@@ -59,7 +59,8 @@ html {
 	text-size-adjust: 100%;
 }
 
-body {
+html, body {
+	height: 100%;
 	margin: 0;
 }
 
