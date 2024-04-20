@@ -323,6 +323,7 @@
 			margin-left: 24px;
 			font-size: 28px;
 			justify-self: start;
+			align-self: start;
 			line-height: 28px;
 		}
 

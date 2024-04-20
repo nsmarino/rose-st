@@ -120,6 +120,7 @@
         transition: color 0.4s ease-out;
         font-size: 16px;
         line-height: 16px;
+        white-space: nowrap;
     }
     nav button.active, nav button:hover {
         color: #000000;
