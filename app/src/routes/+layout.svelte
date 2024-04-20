@@ -164,6 +164,7 @@
 		text-transform: uppercase;
 		font-family: 'NB International';
 		font-size: 20px;
+		line-height: 20px;
 		font-weight: 400;
 		letter-spacing: 1px;
 		justify-self: end;
@@ -176,6 +177,7 @@
 		text-transform: uppercase;
 		font-family: 'NB International';
 		font-size: 20px;
+		line-height: 20px;
 		font-weight: 400;
 		letter-spacing: 1px;
 		align-self: end;
@@ -190,7 +192,7 @@
         border-radius: 100%;
         position: absolute;
         left: 0;
-        top: 3px;
+        top: 0px;
         transform: translateX(-140%) scale(0.001) ;
 		transform-origin: center;
         opacity: 0;
@@ -204,7 +206,6 @@
         border-radius: 100%;
         position: absolute;
         left: 0;
-        top: 3px;
         transform: translateX(-140%) scale(1) ;
 		transform-origin: center;
         opacity: 1;
@@ -316,16 +317,18 @@
 			margin-right: 24px;
 			font-size: 28px;
 			align-self: start;
+			line-height: 28px;
 		}
 		#info-link {
 			margin-left: 24px;
 			font-size: 28px;
 			justify-self: start;
+			line-height: 28px;
 		}
 
 		#info-link::before, #portfolio-link::before {
 			height: 24px !important;
-			top: 4px !important;
+			top: 2px !important;
 		}
 		#info-link::before {
 			right: 0;

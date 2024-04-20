@@ -13,8 +13,8 @@
     let filter = "";
     let subfilter = ""
 	$: filtered = filter ? posts.filter(i=> i.category.title===filter) : posts
-	$: subfiltered = subfilter ? filtered.filter(i=>i.subcategories.map(subcat=>subcat.title).includes(subfilter)) : filtered
-    $: subfilters = filter ? [...new Set(filtered.map(post => post.subcategories).flat().map(subcat => subcat.title))] : []
+	$: subfiltered = subfilter ? filtered.filter(i=>i.subcategories.length>0 && i.subcategories.map(subcat=>subcat.title).includes(subfilter)) : filtered
+    $: subfilters = filter ? [...new Set(filtered.map(post => post.subcategories).flat().map(subcat => subcat && subcat.title))] : []
     $: filterKey = `${filter}-${subfilter}`
     
     const clearFilter = () => {
@@ -43,7 +43,10 @@
                 <div class="subfilter-nav">
                     <button class:active={subfilter===""} on:click={() => subfilter = ""}>All</button>
                     {#each subfilters as subf}
+                    {#if subf}
                         <button class:active={subfilter===subf} on:click={()=> subfilter = subf}>{subf}</button>
+                        
+                    {/if}
                     {/each}
                 </div>            
             {/if}
