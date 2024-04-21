@@ -16,7 +16,7 @@
 	$: subfiltered = subfilter ? filtered.filter(i=>i.subcategories.length>0 && i.subcategories.map(subcat=>subcat.title).includes(subfilter)) : filtered
     $: subfilters = filter ? [...new Set(filtered.map(post => post.subcategories).flat().map(subcat => subcat && subcat.title))] : []
     $: filterKey = `${filter}-${subfilter}`
-    
+
     const clearFilter = () => {
         filter = ""
         subfilter = ""
@@ -39,10 +39,11 @@
             {#each categories as cat}
                 <button class:active={filter===cat.title} on:click={()=>setFilter(cat.title)}><span class="filter-bubble"></span>{cat.title}</button>
             {/each}
-            {#if filter !== "" && subfilters !== []}
+            {#if filter !== "" && subfilters !== [] && subfilters[0]}
                 <div class="subfilter-nav">
                     <button class:active={subfilter===""} on:click={() => subfilter = ""}>All</button>
                     {#each subfilters as subf}
+                    {subf}
                     {#if subf}
                         <button class:active={subfilter===subf} on:click={()=> subfilter = subf}>{subf}</button>
                         

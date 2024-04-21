@@ -8,7 +8,7 @@ export const postsQuery = groq`*[_type == "post"]{
 	...,
 	category->,
 	subcategories[]->
-} | order(_createdAt desc)`;
+} | order(title asc)`;
 export const catQuery = groq`*[_type == "category"] | order(_createdAt desc)`;
 export const subcatQuery = groq`*[_type == "subcategory"] | order(_createdAt desc)`;
 export const settingsQuery = groq`*[_type == "settings"][0]`;
