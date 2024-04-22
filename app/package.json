@@ -15,6 +15,7 @@
 		"@sanity/image-url": "^1.0.2",
 		"@sanity/svelte-loader": "^1.11.1",
 		"@sanity/visual-editing": "^1.7.1",
+		"@sveltejs/adapter-netlify": "^4.2.0",
 		"groq": "^3.33.0"
 	},
 	"devDependencies": {
